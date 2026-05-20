@@ -30,7 +30,7 @@ function App() {
 
 //Config untuk setiap kolom
 const columnConfig: Record<ColumnType, { title: string; emoji: string; color: string}> = {
-  todo: {title: 'To Do',     emoji: '📑', color: 'border-blue-500'},
+  todo: {title: 'To Do',     emoji: '📑', color: 'border-red-500'},
   doing: {title: 'In Progress', emoji: '🏃‍♂️', color: 'border-yellow-500'},
   done: {title: 'done', emoji:'✅', color: 'border-green-500'},
 }
