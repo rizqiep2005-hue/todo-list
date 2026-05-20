@@ -4,11 +4,11 @@ import { useState } from 'react'
 type Task = {
   id: number
   title: string
-  status: 'todo' | 'doing' | 'done'  // hanya 3 nilai yang valid
+  status: 'start'| 'race' | 'finish'  // hanya 3 nilai yang valid
 }
 
 // Tipe untuk column
-type ColumnType = 'todo' | 'doing' | 'done'
+type ColumnType = 'start' | 'race' | 'finish'
 
 function App() {
   // State: daftar semua task
@@ -21,7 +21,7 @@ function App() {
     const newTask: Task = {
       id : Date.now(),
       title : inputValue.trim(),
-      status : 'todo',
+      status : 'start',
     }
 
     setTasks([...tasks, newTask])
@@ -30,9 +30,9 @@ function App() {
 
 //Config untuk setiap kolom
 const columnConfig: Record<ColumnType, { title: string; emoji: string; color: string}> = {
-  todo: {title: 'To Do',     emoji: '📑', color: 'border-red-500'},
-  doing: {title: 'In Progress', emoji: '🏃‍♂️', color: 'border-yellow-500'},
-  done: {title: 'done', emoji:'✅', color: 'border-green-500'},
+  start: {title: 'START',     emoji: '🏎️', color: 'border-red-500'},
+  race : {title : 'RACE', emoji: '🚀', color: 'border-black-500'},
+  finish: {title: 'FINISH', emoji:'🥇', color: 'border-green-500'},
 }
 
 //Fungsi pindahkan task ke status berikutnya
@@ -52,13 +52,13 @@ const getTasksByStatus = (status: ColumnType) => {
   return tasks.filter(task => task.status === status)
 }
 
-const columns: ColumnType[] = ['todo', 'doing', 'done']
+const columns: ColumnType[] = ['start', 'race', 'finish']
 
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-8">
-      <h1 className="text-3xl font-bold text-center mb-8">
-        📋 Todo Board
+    <div className="min-h-screen bg-Barlow Consended-900 text-black p-8">
+      <h1 className="text-3xl font-Orbitron text-center mb-8">
+        🏎️ RACE BOARD 
       </h1>
       <p className="text-center text-gray-400">
         Tasks: {tasks.length} | Input: "{inputValue}"
@@ -77,7 +77,7 @@ const columns: ColumnType[] = ['todo', 'doing', 'done']
   <button
     onClick={addTask}
     className="px-6 py-2 bg-cyan-600 hover:bg-cyan-500 rounded-lg
-               font-semibold transition-colors"
+               font-Orbitron transition-colors"
   >
     + Add
   </button>
@@ -86,15 +86,15 @@ const columns: ColumnType[] = ['todo', 'doing', 'done']
 
  <div className="flex justify-center gap-4 mb-6">
   <div className="bg-blue-500/20 text-blue-400 px-4 py-2 rounded-lg text-sm">
-    📑 Todo: {getTasksByStatus('todo').length}
+    📑 Todo: {getTasksByStatus('start').length}
   </div>
 
    <div className="bg-yellow-500/20 text-blue-400 px-4 py-2 rounded-lg text-sm">
-    🏃‍♂️ Doing: {getTasksByStatus('doing').length}
+    🏃‍♂️ Doing: {getTasksByStatus ('race').length}
   </div>
 
    <div className="bg-green-500/20 text-blue-400 px-4 py-2 rounded-lg text-sm">
-     ✅ Done: {getTasksByStatus('done').length}
+     ✅ Done: {getTasksByStatus('finish').length}
   </div>
 </div>
 {/* Board: 3 Columns */}
@@ -134,10 +134,10 @@ const columns: ColumnType[] = ['todo', 'doing', 'done']
               >
                 <p className="text-sm mb-2">{task.title}</p>
                 <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                  {status !== 'todo' && (
+                  {status !== 'start' && (
                     <button
                       onClick={() => moveTask(task.id,
-                        status === 'doing' ? 'todo' : 'doing'
+                        status == 'race' ? 'start' : 'race'
                       )}
                       className="text-xs px-2 py-1 bg-gray-600 hover:bg-gray-500
                                  rounded transition-colors cursor-pointer"
@@ -145,10 +145,10 @@ const columns: ColumnType[] = ['todo', 'doing', 'done']
                       ← Back
                     </button>
                   )}
-                  {status !== 'done' && (
+                  {status !== 'finish' && (
                     <button
                       onClick={() => moveTask(task.id,
-                        status === 'todo' ? 'doing' : 'done'
+                        status === 'start' ? 'race' : 'finish'
                       )}
                       className="text-xs px-2 py-1 bg-cyan-600 hover:bg-cyan-500
                                  rounded transition-colors cursor-pointer"
